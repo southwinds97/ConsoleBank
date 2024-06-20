@@ -101,7 +101,9 @@ public class PuzzleGame {
 
             while (true) {
                 if (game.isEnd()) {
-                    System.out.println("정답입니다.");
+                    System.out.println("===정답입니다.===");
+                    game.display();
+                    System.out.println("===============");
                     break;
                 }
                 System.out.println("=====");
