@@ -2,19 +2,23 @@ package banking;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashSet;
 import java.util.Set;
 
 public class AutoSaver extends Thread {
+  // 자동저장 여부를 나타내는 변수
   private boolean autoSaveOn;
   private Set<Account> accounts;
 
+  // 기본생성자
   public AutoSaver() {
     this.autoSaveOn = false;
     this.accounts = new HashSet<>();
     setDaemon(true); // AutoSaver 쓰레드를 데몬 쓰레드로 설정
   }
 
+  // accounts 필드의 setter 메서드
   public void setAccounts(Set<Account> accounts) {
     this.accounts = accounts;
   }
@@ -35,6 +39,7 @@ public class AutoSaver extends Thread {
     }
   }
 
+  // AutoSaver 쓰레드를 시작하는 메서드
   public void startAutoSave() {
     if (this.isAlive()) {
       if (!this.autoSaveOn) {
@@ -48,6 +53,7 @@ public class AutoSaver extends Thread {
     }
   }
 
+  // AutoSaver 쓰레드를 중단하는 메서드
   public void stopAutoSave() {
     if (this.isAlive()) {
       this.autoSaveOn = false;
@@ -63,29 +69,30 @@ public class AutoSaver extends Thread {
     }
   }
 
+  // 계좌 정보를 파일로 저장하는 메서드
   private void saveAccountInfo() {
-    try (FileWriter writer = new FileWriter("src/banking/AutoSaveAccount.txt")) {
+    try (PrintWriter writer = new PrintWriter(new FileWriter("src/banking/AutoSaveAccount.txt"))) {
       for (Account account : accounts) {
-        writer.write("계좌번호: " + account.getAccountNo() + "\n");
-        writer.write("고객이름: " + account.getOwnerName() + "\n");
-        writer.write("잔고: " + account.getBalance() + "\n");
+        writer.println("계좌번호: " + account.getAccountNo());
+        writer.println("고객이름: " + account.getOwnerName());
+        writer.println("잔고: " + account.getBalance());
         if (account instanceof NormalAccount) {
           double interestRate = ((NormalAccount) account).getInterestRate();
           int interestRateAsInt = (int) (interestRate * 100);
-          writer.write("기본이자: " + interestRateAsInt + "%\n");
+          writer.println("기본이자: " + interestRateAsInt + "%");
         }
         if (account instanceof HighCreditAccount) {
           double interestRate = ((HighCreditAccount) account).getInterestRate();
           int interestRateAsInt = (int) (interestRate * 100);
-          writer.write("기본이자: " + interestRateAsInt + "%\n");
+          writer.println("기본이자: " + interestRateAsInt + "%");
           String creditRating = ((HighCreditAccount) account).getCreditRating();
-          writer.write("신용등급: " + creditRating + "\n");
+          writer.println("신용등급: " + creditRating);
         }
         if (account instanceof SpecialAccount) {
           int depositCount = ((SpecialAccount) account).getDepositCount();
-          writer.write("입금 횟수: " + depositCount + "회\n");
+          writer.println("입금 횟수: " + depositCount + "회");
         }
-        writer.write("----------------\n");
+        writer.println("----------------");
       }
       System.out.println("계좌 정보가 텍스트로 자동 저장되었습니다.");
     } catch (IOException e) {

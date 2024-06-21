@@ -2,7 +2,7 @@ package banking;
 
 import java.io.Serializable;
 
-public class HighCreditAccount extends Account implements Serializable {
+public class HighCreditAccount extends Account implements Serializable, ICustomDefine {
   private double interestRate; // 이율
   private String creditRating; // 신용등급
 
@@ -32,11 +32,14 @@ public class HighCreditAccount extends Account implements Serializable {
   // 신용등급에 따른 추가이율을 반환하는 메서드
   public double getAdditionalRate() {
     if (creditRating.equals("A")) {
-      return 0.07;
+      return GRADE_A;
     } else if (creditRating.equals("B")) {
-      return 0.04;
+      return GRADE_B;
+    } else if (creditRating.equals("C")) {
+      return GRADE_C;
     } else {
-      return 0.02;
+      System.out.println("잘못된 신용등급입니다.");
+      return 0.0;
     }
   }
 

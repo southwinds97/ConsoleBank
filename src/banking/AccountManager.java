@@ -47,86 +47,90 @@ public class AccountManager {
 
   // 계좌개설을 위한 함수
   public void makeAccount() {
-    Scanner scan = new Scanner(System.in);
-    String ino, iname;
-    int ibal;
-    // newAccount 객체를 만들어서 accounts에 추가
-    Account newAccount;
-    System.out.println("***신규계좌개설***");
-    System.out.println("---계좌선택---");
-    System.out.println("1. 보통예금계좌");
-    System.out.println("2. 신용신뢰계좌");
-    System.out.println("3. 특판계좌");
-    System.out.print("선택: ");
-    int choice = scan.nextInt();
-    scan.nextLine(); // 버퍼비우기
-    if (choice == 1) {
-      System.out.println("보통예금계좌선택");
-      System.out.print("계좌번호: ");
-      ino = scan.nextLine();
-      System.out.print("고객이름: ");
-      iname = scan.nextLine();
-      System.out.print("잔고: ");
-      ibal = scan.nextInt();
-      System.out.print("기본이자%(정수형태로입력): ");
-      int inrate = scan.nextInt();
+    try {
+      Scanner scan = new Scanner(System.in);
+      String ino, iname;
+      int ibal;
+      // newAccount 객체를 만들어서 accounts에 추가
+      Account newAccount;
+      System.out.println("***신규계좌개설***");
+      System.out.println("---계좌선택---");
+      System.out.println("1. 보통예금계좌");
+      System.out.println("2. 신용신뢰계좌");
+      System.out.println("3. 특판계좌");
+      System.out.print("선택: ");
+      int choice = scan.nextInt();
       scan.nextLine(); // 버퍼비우기
-      double interestRate = inrate / 100.0; // 이자율을 소수로 변환
-      // accounts[index] = new NormalAccount(ino, iname, ibal, interestRate);
-      newAccount = new NormalAccount(ino, iname, ibal, interestRate);
-      index++;
-    } else if (choice == 2) {
-      System.out.println("신용신뢰계좌선택");
-      System.out.print("계좌번호: ");
-      ino = scan.nextLine();
-      System.out.print("고객이름: ");
-      iname = scan.nextLine();
-      System.out.print("잔고: ");
-      ibal = scan.nextInt();
-      System.out.print("기본이자%(정수형태로입력): ");
-      int inrate = scan.nextInt();
-      System.out.print("신용등급(A,B,C등급): ");
-      scan.nextLine(); // 버퍼비우기
-      String credit = scan.nextLine();
-      // accounts[index] = new HighCreditAccount(ino, iname, ibal, inrate / 100.0,
-      // credit);
-      newAccount = new HighCreditAccount(ino, iname, ibal, inrate / 100.0, credit);
-      index++;
-    } else if (choice == 3) {
-      System.out.println("특판계좌선택");
-      System.out.print("계좌번호: ");
-      ino = scan.nextLine();
-      System.out.print("고객이름: ");
-      iname = scan.nextLine();
-      System.out.print("잔고: ");
-      ibal = scan.nextInt();
-      System.out.print("기본이자%(정수형태로입력): ");
-      int inrate = scan.nextInt();
-      scan.nextLine(); // 버퍼비우기
-      // accounts[index] = new SpecialAccount(ino, iname, ibal, inrate / 100.0);
-      newAccount = new SpecialAccount(ino, iname, ibal, inrate / 100.0);
-      index++;
-    }
-
-    else {
-      System.out.println("계좌선택이 잘못되었습니다.");
-      return;
-    }
-    // 중복계좌발견시 덮어쓸지 물어보기
-    if (accounts.contains(newAccount)) {
-      System.out.println("중복계좌발견됨. 덮어쓸까요?(y or n)");
-      String overwrite = scan.nextLine();
-      if (overwrite.equalsIgnoreCase("y")) {
-        accounts.remove(newAccount);
-        accounts.add(newAccount);
-        System.out.println("덮어쓰기가 되었습니다.");
-        System.out.println("계좌개설이 완료되었습니다.");
-      } else {
-        System.out.println("기존의 정보를 유지합니다.");
+      if (choice == 1) {
+        System.out.println("보통예금계좌선택");
+        System.out.print("계좌번호: ");
+        ino = scan.nextLine();
+        System.out.print("고객이름: ");
+        iname = scan.nextLine();
+        System.out.print("잔고: ");
+        ibal = scan.nextInt();
+        System.out.print("기본이자%(정수형태로입력): ");
+        int inrate = scan.nextInt();
+        scan.nextLine(); // 버퍼비우기
+        double interestRate = inrate / 100.0; // 이자율을 소수로 변환
+        // accounts[index] = new NormalAccount(ino, iname, ibal, interestRate);
+        newAccount = new NormalAccount(ino, iname, ibal, interestRate);
+        index++;
+      } else if (choice == 2) {
+        System.out.println("신용신뢰계좌선택");
+        System.out.print("계좌번호: ");
+        ino = scan.nextLine();
+        System.out.print("고객이름: ");
+        iname = scan.nextLine();
+        System.out.print("잔고: ");
+        ibal = scan.nextInt();
+        System.out.print("기본이자%(정수형태로입력): ");
+        int inrate = scan.nextInt();
+        System.out.print("신용등급(A,B,C등급): ");
+        scan.nextLine(); // 버퍼비우기
+        String credit = scan.nextLine();
+        // accounts[index] = new HighCreditAccount(ino, iname, ibal, inrate / 100.0,
+        // credit);
+        newAccount = new HighCreditAccount(ino, iname, ibal, inrate / 100.0, credit);
+        index++;
+      } else if (choice == 3) {
+        System.out.println("특판계좌선택");
+        System.out.print("계좌번호: ");
+        ino = scan.nextLine();
+        System.out.print("고객이름: ");
+        iname = scan.nextLine();
+        System.out.print("잔고: ");
+        ibal = scan.nextInt();
+        System.out.print("기본이자%(정수형태로입력): ");
+        int inrate = scan.nextInt();
+        scan.nextLine(); // 버퍼비우기
+        // accounts[index] = new SpecialAccount(ino, iname, ibal, inrate / 100.0);
+        newAccount = new SpecialAccount(ino, iname, ibal, inrate / 100.0);
+        index++;
       }
-    } else {
-      accounts.add(newAccount);
-      System.out.println("계좌개설이 완료되었습니다.");
+
+      else {
+        System.out.println("계좌선택이 잘못되었습니다.");
+        return;
+      }
+      // 중복계좌발견시 덮어쓸지 물어보기
+      if (accounts.contains(newAccount)) {
+        System.out.println("중복계좌발견됨. 덮어쓸까요?(y or n)");
+        String overwrite = scan.nextLine();
+        if (overwrite.equalsIgnoreCase("y")) {
+          accounts.remove(newAccount);
+          accounts.add(newAccount);
+          System.out.println("덮어쓰기가 되었습니다.");
+          System.out.println("계좌개설이 완료되었습니다.");
+        } else {
+          System.out.println("기존의 정보를 유지합니다.");
+        }
+      } else {
+        accounts.add(newAccount);
+        System.out.println("계좌개설이 완료되었습니다.");
+      }
+    } catch (InputMismatchException e) {
+      System.out.println("잘못된 입력입니다. 정수를 입력해주세요.");
     }
   }
 
@@ -238,28 +242,44 @@ public class AccountManager {
     System.out.println("전체계좌정보 출력이 완료되었습니다.");
   }
 
+  // 계좌정보삭제
   public void removeAccount() {
-    Scanner scan = new Scanner(System.in);
-    System.out.println("삭제할 계좌번호를 입력하세요.");
-    System.out.print("계좌번호: ");
-    String accountNo = scan.nextLine();
+    try {
+      Scanner scan = new Scanner(System.in);
+      System.out.println("삭제할 계좌번호를 입력하세요.");
+      System.out.print("계좌번호: ");
+      String accountNo = scan.nextLine();
 
-    Account targetAccount = null;
-    for (Account account : accounts) {
-      if (account.getAccountNo().equals(accountNo)) {
-        targetAccount = account;
-        break;
+      if (accountNo.isEmpty()) {
+        System.out.println("계좌번호를 입력해주세요.");
+        return;
       }
-    }
 
-    if (targetAccount != null) {
-      accounts.remove(targetAccount);
-      System.out.println("계좌가 삭제되었습니다.");
-    } else {
-      System.out.println("일치하는 계좌가 없습니다.");
+      if (accounts == null) {
+        System.out.println("계좌 정보가 없습니다.");
+        return;
+      }
+
+      Account targetAccount = null;
+      for (Account account : accounts) {
+        if (account.getAccountNo().equals(accountNo)) {
+          targetAccount = account;
+          break;
+        }
+      }
+
+      if (targetAccount != null) {
+        accounts.remove(targetAccount);
+        System.out.println("계좌가 삭제되었습니다.");
+      } else {
+        System.out.println("일치하는 계좌가 없습니다.");
+      }
+    } catch (Exception e) {
+      System.out.println("오류가 발생했습니다: " + e.getMessage());
     }
   }
 
+  // 파일에 객체를 저장하는 메소드
   public void saveAccount() {
     try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("src/banking/AccountInfo.obj"))) {
       oos.writeObject(accounts);
@@ -284,23 +304,27 @@ public class AccountManager {
 
   // 자동저장
   public void autoSave() {
-    Scanner scan = new Scanner(System.in);
-    System.out.println("1. 자동저장On");
-    System.out.println("2. 자동저장Off");
-    System.out.print("선택: ");
-    int choice = scan.nextInt();
-    scan.nextLine(); // 버퍼비우기
-    switch (choice) {
-      case 1:
-        autoSaver.setAccounts(accounts);
-        autoSaver.startAutoSave();
-        return; // 메서드 종료
-      case 2:
-        autoSaver.stopAutoSave();
-        return; // 메서드 종료
-      default:
-        System.out.println("잘못된 선택입니다.");
-        return; // 메서드 종료
+    try {
+      Scanner scan = new Scanner(System.in);
+      System.out.println("1. 자동저장On");
+      System.out.println("2. 자동저장Off");
+      System.out.print("선택: ");
+      int choice = scan.nextInt();
+      scan.nextLine(); // 버퍼비우기
+      switch (choice) {
+        case 1:
+          autoSaver.setAccounts(accounts);
+          autoSaver.startAutoSave();
+          return; // 메서드 종료
+        case 2:
+          autoSaver.stopAutoSave();
+          return; // 메서드 종료
+        default:
+          System.out.println("잘못된 선택입니다.");
+          return; // 메서드 종료
+      }
+    } catch (InputMismatchException e) {
+      System.out.println("잘못된 입력입니다. 정수를 입력해주세요.");
     }
   }
 }
