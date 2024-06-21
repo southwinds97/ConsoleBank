@@ -131,11 +131,12 @@ public class PuzzleGame {
                     System.out.println("[ 이동 ] a:Left d:Right w:Up s:Down");
                     System.out.println("[ 종료 ] x:Exit");
                     System.out.print("키를 입력하세요: ");
-                    String input = scanner.nextLine();
+                    String input = scanner.nextLine().toLowerCase();
                     if (!input.matches("[wasdx]")) {
                         System.out.println("잘못된 입력입니다. 다시 시도해주세요.");
                         // continue;
                     }
+                    // X를 입력하면 게임 종료
                     if (input.equals("x")) {
                         break;
                     }
