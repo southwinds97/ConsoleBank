@@ -81,6 +81,10 @@ public class AutoSaver extends Thread {
           String creditRating = ((HighCreditAccount) account).getCreditRating();
           writer.write("신용등급: " + creditRating + "\n");
         }
+        if (account instanceof SpecialAccount) {
+          int depositCount = ((SpecialAccount) account).getDepositCount();
+          writer.write("입금 횟수: " + depositCount + "회\n");
+        }
         writer.write("----------------\n");
       }
       System.out.println("계좌 정보가 텍스트로 자동 저장되었습니다.");
