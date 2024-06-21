@@ -1,5 +1,6 @@
 package banking;
 
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class PuzzleGame {
@@ -65,6 +66,7 @@ public class PuzzleGame {
         int k = 0;
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
+                // 배열값이 0~8까지 순서대로 저장되어 있는지 확인
                 if (panCount[i][j] != k)
                     return false;
                 k++;
@@ -112,34 +114,43 @@ public class PuzzleGame {
     public boolean gameStart() {
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            System.out.println("=====");
-            PuzzleGame game = new PuzzleGame();
-            game.getRand();
-            game.display();
-
-            while (true) {
-                if (game.isEnd()) {
-                    System.out.println("===정답입니다.===");
-                    game.display();
-                    System.out.println("===============");
-                    break;
-                }
+            try {
                 System.out.println("=====");
-                System.out.println("[ 이동 ] a:Left d:Right w:Up s:Down");
-                System.out.println("[ 종료 ] x:Exit");
-                System.out.print("키를 입력하세요: ");
-                String input = scanner.nextLine();
-                if (input.equals("x")) {
-                    break;
-                }
-                game.move(input);
-                System.out.println("=====");
+                PuzzleGame game = new PuzzleGame();
+                game.getRand();
                 game.display();
-            }
 
-            System.out.print("완료되었습니다. 재시작하시겠습니까? (y/n): ");
-            String restart = scanner.nextLine();
-            if (!restart.equalsIgnoreCase("y")) {
+                while (true) {
+                    if (game.isEnd()) {
+                        System.out.println("===정답입니다.===");
+                        game.display();
+                        System.out.println("===============");
+                        break;
+                    }
+                    System.out.println("=====");
+                    System.out.println("[ 이동 ] a:Left d:Right w:Up s:Down");
+                    System.out.println("[ 종료 ] x:Exit");
+                    System.out.print("키를 입력하세요: ");
+                    String input = scanner.nextLine();
+                    if (!input.matches("[wasdx]")) {
+                        System.out.println("잘못된 입력입니다. 다시 시도해주세요.");
+                        continue;
+                    }
+                    if (input.equals("x")) {
+                        break;
+                    }
+                    game.move(input);
+                    System.out.println("=====");
+                    game.display();
+                }
+
+                System.out.print("완료되었습니다. 재시작하시겠습니까? (y/n): ");
+                String restart = scanner.nextLine();
+                if (!restart.equalsIgnoreCase("y")) {
+                    return false;
+                }
+            } catch (NoSuchElementException | IllegalStateException e) {
+                System.out.println("입력 오류가 발생했습니다. 게임을 종료합니다.");
                 return false;
             }
         }
