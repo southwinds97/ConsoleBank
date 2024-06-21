@@ -134,7 +134,7 @@ public class PuzzleGame {
                     String input = scanner.nextLine();
                     if (!input.matches("[wasdx]")) {
                         System.out.println("잘못된 입력입니다. 다시 시도해주세요.");
-                        continue;
+                        // continue;
                     }
                     if (input.equals("x")) {
                         break;
